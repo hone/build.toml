@@ -1,0 +1,68 @@
+[project]
+id = "<buildpack ID>"
+name = "<buildpack name>"
+version = "<buildpack version>"
+
+# optional fields
+authors = []
+spec = "v3" # defaults to v3
+documentation = ""
+license = ""
+
+# gitignore pattern, exclude and include are mutually exclusive
+exclude = [""]
+include = [""]
+
+package = false # to be added with buildpack registry RFC, false denotes not to accidentally publish
+workspace = "..." # path to root build.toml
+
+[extensions]
+osbapi = true
+
+[[buildpacks.stacks]]
+id = "io.buildpacks.stacks.bionic"
+
+[[buildpacks]]
+version = "<buildpack version (optional default=latest)>"
+optional = "<bool (optional default=false)>"
+# uri and path are mutually exclusive
+uri = "<url or path to the buildpack (optional default=urn:buildpack:<id>)"
+path = "<path to an inline buildpack (optional)"
+
+[[buildpacks.order]]
+group = [
+  { id = "io.buildpacks.node", version = "0.0.5" },
+  { id = "io.buildpacks.npm", version = "0.0.7" },
+]
+
+[[bpkg]]
+# inherits from [project]
+id = "..."
+# by default inherits from project.name
+name = "..."
+version = "<buildpack version (optional default=latest)>"
+path = [...]
+
+[[image]]
+# by default inherits from project.name
+name = "..."
+path = "."
+stack = <id> # default stack to build against
+  [image.env]
+  key1 = "value"
+  key2 = "value"
+
+# can use globs for pattern matching here
+[workspace]
+members = []
+# `pack build` will build images for these by default 
+default-members = []
+exclude = []
+
+# keys in here are not validated
+[metadata]
+# place to store vendor specific metadata
+[metadata.heroku]
+addons = {
+  postgresql = "9.6"
+}
