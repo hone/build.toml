@@ -1,0 +1,24 @@
+[project]
+id = "io.buildpacks.sample-java"
+name = "Sample Java"
+version = "0.0.1"
+
+authors = ["Andrew Meyer", "Daniel Joyce"]
+
+[[buildpacks]]
+id = "heroku/java"
+version = "0.13"
+uri = "..."
+
+[[image]]
+stack = "heroku-18"
+  [image.env]
+  MAVEN_OPTS = "-Xmx2g"
+  [[image.processes]]
+  name = "web"
+  cmd = "java -jar target/*.jar"
+
+[[metadata.heroku.addons]]
+name = "heroku-postgresql"
+plan = "hobby-dev"
+version = "9.6"

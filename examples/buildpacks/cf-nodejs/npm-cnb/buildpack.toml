@@ -1,0 +1,8 @@
+[project]
+id = "org.cloudfoundry.npm"
+name = "NPM Buildpack"
+version = "0.0.8"
+
+[metadata]
+include_files = ["bin/build","bin/detect","buildpack.toml"]
+pre_package = "./scripts/build.sh"

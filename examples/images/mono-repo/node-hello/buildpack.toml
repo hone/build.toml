@@ -1,0 +1,16 @@
+[project]
+id = "io.buildpacks.mono-repo.node-hello"
+name = "Node Hello"
+version = "0.0.1"
+
+[[buildpacks]]
+id = "projectriff/builder"
+version = "0.3.0"
+
+# replace with heroku node.js buildpack
+[[patch]]
+id = "org.cloudfoundry.node-engine"
+uri = "https://.../"
+
+[[image]]
+stack = "io.buildpacks.stacks.bionic"

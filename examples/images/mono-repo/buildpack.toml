@@ -1,0 +1,10 @@
+[project]
+id = "io.buildpacks.mono-repo"
+name = "Mono Repo Sample"
+version = "0.0.1"
+
+[workspace]
+members = [
+  "node-hello",
+  "go-backend",
+]

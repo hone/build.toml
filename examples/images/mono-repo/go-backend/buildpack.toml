@@ -1,0 +1,14 @@
+[project]
+id = "io.buildpacks.mono-repo.go-backend"
+name = "Go Backend"
+version = "0.0.1"
+
+[[buildpacks]]
+id = "heroku/go"
+version = "0.0.1"
+
+[[image]]
+stack = "heroku/18"
+  [[image.processes]]
+  name = "web"
+  cmd = "go run web -p $PORT"
