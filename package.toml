@@ -1,0 +1,85 @@
+[package]
+# the id maps to the OCI image that will be generated
+id = "<package id>"
+
+# optional fields
+# English Description of the project
+name = "<build name>"
+# the version of the app, this will map to the OCI tag when built. by default will use "latest"
+version = "<package version>"
+# Authors working on the project (maybe we can add labels/metadata on the OCI image)
+authors = []
+# URL to the documentation for the project
+documentation = ""
+# License for this code
+license = ""
+# Do we want something that points to the git source code URL?
+source = ""
+
+# gitignore pattern, exclude and include are mutually exclusive
+exclude = [""]
+include = [""]
+
+# false means to not accidentally publish to a OCI Registry
+publish = false
+
+# enable CNB Extensions
+[extensions]
+# defaults to false if not specified
+osbapi = <boolean>
+
+# buildpacks array (ordering determines buildpack order) of buildpacks to run
+[[buildpacks]]
+id = "<buildpack id>"
+version = "<buildpack version>"
+# uri and path are mutually exclusive
+uri = "<url or path to the buildpack (optional default=urn:buildpack:<id>)"
+# when using path, do we need to specify id/version?
+path = "<path to an inline buildpack (optional)"
+
+# The rest of these fields are only needed when defining an inline buildpack, follows the distribution spec buildpack.toml
+[[buildpacks.stacks]]
+id = "<buildpack stack>"
+
+[[buildpacks.order]]
+
+[[buildpacks.order.group]]
+id = "<buildpack id>"
+version = "<buildpack version>"
+optional = <boolean>
+# uri and path are mutually exclusive. These fields can be used to override buildpacks on the existing builder image (and in the future the registry)
+uri = "<url or path to the buildpack (optional default=urn:buildpack:<id>)"
+path = "<path to an inline buildpack (optional)"
+
+# This lets you override an inner buildpack dependency with a custom one
+[[patch]]
+id = "<buildpack id>"
+version = "<buildpack version>"
+# uri and path are mutually exclusive.
+uri = "<url or path to the buildpack (optional default=urn:buildpack:<id>)"
+path = "<path to an inline buildpack (optional)"
+
+[[image]]
+# optional, by default inherits from [package.name]. If set will override the OCI image produced
+name = "<image name>"
+# optional, by default uses the directory where this file lives
+path = "."
+# default stack to build against
+stack = "<buildpack stack>"
+  # set environment variables at launch time
+  [image.launch.env]
+  key1 = "value"
+  key2 = "value"
+  # set environment variables at build time
+  [image.build.env]
+  key1 = "value"
+  key2 = "value"
+  # array of processes used to run the image
+  [[image.processes]]
+  name = "<process name>"
+  cmd = "..."
+
+# keys in here are not validated
+[metadata]
+# place to store vendor specific metadata
+[metadata.heroku]
